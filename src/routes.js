@@ -26,13 +26,19 @@ router.post('/contact', [
     .normalizeEmail()
 ], (req, res) => {
   const errors = validationResult(req);
-  res.render('contact', {
-    data: req.body,
-    errors: errors.mapped()
-  });
+  if (!errors.isEmpty()) {
+    res.render('contact', {
+      data: req.body,
+      errors: errors.mapped()
+    });
+  }
 
   const data = matchedData(req);
   console.log('Sanitized: ', data);
+  // Homework: send sanitized data in an email or persist in a db
+
+  req.flash('success', 'Thanks for the message! I‘ll be in touch :)');
+  res.redirect('/');
 });
 
 module.exports = router
