@@ -7,6 +7,7 @@ const validator = require('express-validator');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('express-flash');
+const helmet = require('helmet');
 
 const routes = require('./routes')
 const app = express()
@@ -15,6 +16,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 const middlewares = [
+  helmet(),
   layout(),
   express.static(path.join(__dirname, 'public')),
   bodyParser.urlencoded(),
