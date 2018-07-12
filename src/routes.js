@@ -13,6 +13,18 @@ router.get('/contact', (req, res) => {
   });
 });
 
-
+router.post('/contact', (req, res) => {
+  res.render('contact', {
+    data: req.body,
+    errors: {
+      message: {
+        msg: 'A message is required'
+      },
+      email: {
+        msg: 'That email doesn‘t look right'
+      }
+    }
+  });
+});
 
 module.exports = router
