@@ -2,6 +2,7 @@
 const path = require('path')
 const express = require('express')
 const layout = require('express-layout')
+const bodyParser = require('body-parser');
 
 const routes = require('./routes')
 const app = express()
@@ -11,7 +12,8 @@ app.set('view engine', 'ejs')
 
 const middlewares = [
   layout(),
-  express.static(path.join(__dirname, 'public'))
+  express.static(path.join(__dirname, 'public')),
+  bodyParser.urlencoded()
 ]
 app.use(middlewares)
 
