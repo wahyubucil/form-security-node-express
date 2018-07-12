@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('express-flash');
 const helmet = require('helmet');
+const csrf = require('csurf');
 
 const routes = require('./routes')
 const app = express()
@@ -29,7 +30,8 @@ const middlewares = [
     saveUninitialized: false,
     cookie: { maxAge: 60000 }
   }),
-  flash()
+  flash(),
+  csrf({ cookie: true })
 ]
 app.use(middlewares)
 

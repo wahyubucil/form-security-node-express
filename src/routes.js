@@ -11,7 +11,8 @@ router.get('/', (req, res) => {
 router.get('/contact', (req, res) => {
   res.render('contact', {
     data: {},
-    errors: {}
+    errors: {},
+    csrfToken: req.csrfToken()
   });
 });
 
@@ -29,7 +30,8 @@ router.post('/contact', [
   if (!errors.isEmpty()) {
     res.render('contact', {
       data: req.body,
-      errors: errors.mapped()
+      errors: errors.mapped(),
+      csrfToken: req.csrfToken()
     });
   }
 
