@@ -4,6 +4,9 @@ const router = express.Router()
 const { check, validationResult } = require('express-validator/check');
 const { matchedData } = require('express-validator/filter');
 
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
+
 router.get('/', (req, res) => {
   res.render('index')
 })
@@ -16,7 +19,7 @@ router.get('/contact', (req, res) => {
   });
 });
 
-router.post('/contact', [
+router.post('/contact', upload.single('photo'), [
   check('message')
     .isLength({ min: 1 })
     .withMessage('Message is required')
@@ -38,6 +41,11 @@ router.post('/contact', [
   const data = matchedData(req);
   console.log('Sanitized: ', data);
   // Homework: send sanitized data in an email or persist in a db
+
+  if (req.file) {
+    console.log('Uploaded: ', req.file);
+    // Homework: Upload file to S3
+  }
 
   req.flash('success', 'Thanks for the message! I‘ll be in touch :)');
   res.redirect('/');
